@@ -284,6 +284,9 @@ function buildBoardElements(): void {
 
       cellEl.addEventListener('click', () => {
         if (cellEl.dataset.longPress === '1') {
+          const clearId = Number(cellEl.dataset.longPressClearTimer || '0');
+          if (clearId) window.clearTimeout(clearId);
+          delete cellEl.dataset.longPressClearTimer;
           delete cellEl.dataset.longPress;
           return;
         }
@@ -301,12 +304,12 @@ function buildBoardElements(): void {
 
       const startLongPress = () => {
         if (cellEl.dataset.pressTimer) return;
+        const clearId = Number(cellEl.dataset.longPressClearTimer || '0');
+        if (clearId) window.clearTimeout(clearId);
+        delete cellEl.dataset.longPressClearTimer;
         const timer = window.setTimeout(() => {
           cellEl.dataset.longPress = '1';
           toggleFlag(row, col);
-          window.setTimeout(() => {
-            delete cellEl.dataset.longPress;
-          }, 600);
         }, 420);
         cellEl.dataset.pressTimer = String(timer);
       };
@@ -315,6 +318,13 @@ function buildBoardElements(): void {
         const timerId = Number(cellEl.dataset.pressTimer || '0');
         if (timerId) window.clearTimeout(timerId);
         delete cellEl.dataset.pressTimer;
+        if (cellEl.dataset.longPress === '1' && !cellEl.dataset.longPressClearTimer) {
+          const clearTimer = window.setTimeout(() => {
+            delete cellEl.dataset.longPress;
+            delete cellEl.dataset.longPressClearTimer;
+          }, 700);
+          cellEl.dataset.longPressClearTimer = String(clearTimer);
+        }
       };
 
       cellEl.addEventListener('pointerdown', (event) => {
