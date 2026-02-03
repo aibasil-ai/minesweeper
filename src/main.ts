@@ -299,14 +299,17 @@ function buildBoardElements(): void {
         setActiveCell(row, col, false);
       });
 
-      cellEl.addEventListener('pointerdown', (event) => {
-        if (event.pointerType !== 'touch') return;
+      const startLongPress = () => {
+        if (cellEl.dataset.pressTimer) return;
         const timer = window.setTimeout(() => {
           cellEl.dataset.longPress = '1';
           toggleFlag(row, col);
+          window.setTimeout(() => {
+            delete cellEl.dataset.longPress;
+          }, 600);
         }, 420);
         cellEl.dataset.pressTimer = String(timer);
-      });
+      };
 
       const cancelPress = () => {
         const timerId = Number(cellEl.dataset.pressTimer || '0');
@@ -314,9 +317,22 @@ function buildBoardElements(): void {
         delete cellEl.dataset.pressTimer;
       };
 
+      cellEl.addEventListener('pointerdown', (event) => {
+        if (event.pointerType && event.pointerType !== 'touch') return;
+        startLongPress();
+      });
+
+      cellEl.addEventListener('touchstart', (event) => {
+        if (event.touches.length !== 1) return;
+        startLongPress();
+      });
+
       cellEl.addEventListener('pointerup', cancelPress);
       cellEl.addEventListener('pointerleave', cancelPress);
       cellEl.addEventListener('pointercancel', cancelPress);
+      cellEl.addEventListener('touchend', cancelPress);
+      cellEl.addEventListener('touchcancel', cancelPress);
+      cellEl.addEventListener('touchmove', cancelPress);
 
       state.cellEls[row][col] = cellEl;
       fragment.appendChild(cellEl);
