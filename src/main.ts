@@ -252,12 +252,21 @@ function getConfigLabel(config: GameConfig, key?: DifficultyKey): string {
 }
 
 function applyBoardSizing(): void {
-  const { cols } = state.config;
-  const panelWidth = boardPanelEl.clientWidth - 32;
+  const { cols, rows } = state.config;
+  const panelWidth = Math.max(boardPanelEl.clientWidth - 32, 0);
+  const panelHeight = Math.max(boardPanelEl.clientHeight - 32, 0);
   const gap = Number.parseInt(getComputedStyle(boardEl).gap || '4', 10);
   const maxCell = 36;
-  const minCell = 18;
-  const cellSize = clamp(Math.floor((panelWidth - gap * (cols - 1)) / cols), minCell, maxCell);
+  const minCell = 16;
+  const maxCellByWidth = Math.floor((panelWidth - gap * (cols - 1)) / cols);
+  const maxCellByHeight = panelHeight
+    ? Math.floor((panelHeight - gap * (rows - 1)) / rows)
+    : maxCellByWidth;
+  const cellSize = clamp(
+    Math.floor(Math.min(maxCell, maxCellByWidth, maxCellByHeight)),
+    minCell,
+    maxCell
+  );
   boardEl.style.setProperty('--cell-size', `${cellSize}px`);
   boardEl.style.gridTemplateColumns = `repeat(${cols}, ${cellSize}px)`;
   boardEl.style.gridAutoRows = `${cellSize}px`;
