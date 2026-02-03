@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>踩地雷 | Minesweeper</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="hero">
+        <div class="hero-text">
+          <p class="kicker">Minesweeper // 地圖掃雷</p>
+          <h1>踩地雷</h1>
+          <p class="subtitle">在雷區裡計算、標記、存活。</p>
+        </div>
+        <div class="stats" aria-live="polite">
+          <div class="stat">
+            <span>時間</span>
+            <strong id="timer">000</strong>
+          </div>
+          <div class="stat">
+            <span>剩餘地雷</span>
+            <strong id="mines-left">000</strong>
+          </div>
+          <div class="stat">
+            <span>狀態</span>
+            <strong id="status" data-tone="ready">就緒</strong>
+          </div>
+        </div>
+      </header>
+
+      <section class="controls">
+        <div class="control-group">
+          <label for="difficulty">難度</label>
+          <select id="difficulty">
+            <option value="easy">新手 9x9 / 10</option>
+            <option value="medium" selected>標準 16x16 / 40</option>
+            <option value="hard">專家 30x16 / 99</option>
+            <option value="custom">自訂</option>
+          </select>
+        </div>
+
+        <div class="control-group nickname-group">
+          <label for="nickname">暱稱</label>
+          <input id="nickname" type="text" maxlength="12" placeholder="玩家" autocomplete="nickname" />
+        </div>
+
+        <div class="control-group custom-fields" id="custom-fields" hidden>
+          <label for="custom-cols">寬度</label>
+          <input id="custom-cols" type="number" min="6" max="40" value="12" />
+          <label for="custom-rows">高度</label>
+          <input id="custom-rows" type="number" min="6" max="30" value="12" />
+          <label for="custom-mines">地雷</label>
+          <input id="custom-mines" type="number" min="5" max="300" value="25" />
+        </div>
+
+        <div class="control-group toggles">
+          <label class="toggle">
+            <input id="sound-toggle" type="checkbox" checked />
+            <span class="toggle-ui" aria-hidden="true"></span>
+            <span class="toggle-text">音效</span>
+          </label>
+          <button id="hint-btn" class="btn-ghost" type="button">提示</button>
+          <span id="hint-info" class="hint-info" aria-live="polite">提示次數 0</span>
+        </div>
+
+        <div class="control-actions">
+          <button id="new-game" class="btn-primary" type="button">新局</button>
+          <button id="reset" class="btn-ghost" type="button">重置時間</button>
+        </div>
+      </section>
+
+      <section class="arena">
+        <section class="board-panel">
+          <div class="board" id="board" role="grid" aria-label="踩地雷棋盤"></div>
+        </section>
+        <aside class="leaderboard-panel" aria-live="polite">
+          <div class="panel-header">
+            <h2>排行榜</h2>
+            <p id="leaderboard-label">標準 16x16 / 40</p>
+          </div>
+          <ol id="leaderboard" class="leaderboard-list"></ol>
+          <button id="clear-records" class="btn-ghost" type="button">清除紀錄</button>
+        </aside>
+      </section>
+
+      <footer class="tips">
+        <p>左鍵開啟、右鍵插旗；行動裝置可長按插旗。</p>
+        <p>鍵盤：方向鍵移動，空白或 Enter 開啟，F 插旗。</p>
+        <p>第一次點擊保證安全，並優先保護周圍 3x3。</p>
+      </footer>
+    </div>
+
+    <script type="module" src="./dist/main.js"></script>
+  </body>
+</html>
