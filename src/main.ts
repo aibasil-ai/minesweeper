@@ -295,6 +295,7 @@ function buildBoardElements(): void {
       });
       cellEl.addEventListener('contextmenu', (event) => {
         event.preventDefault();
+        if (cellEl.dataset.longPress === '1') return;
         setActiveCell(row, col, false);
         toggleFlag(row, col);
       });
