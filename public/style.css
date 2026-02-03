@@ -512,99 +512,15 @@ button {
 
 @media (max-width: 640px) {
   body {
-    padding: 12px;
-    height: 100dvh;
-    min-height: 100dvh;
-    align-items: stretch;
-    overflow: hidden;
-  }
-
-  .app {
-    height: 100%;
-    gap: 12px;
-    grid-template-rows: auto auto 1fr;
-  }
-
-  .hero {
-    padding: 14px 16px;
-    gap: 12px;
-  }
-
-  .kicker {
-    font-size: 0.6rem;
-    margin-bottom: 6px;
-  }
-
-  .hero h1 {
-    font-size: 2rem;
-  }
-
-  .subtitle {
-    font-size: 0.9rem;
-  }
-
-  .stats {
-    width: 100%;
-    gap: 8px;
+    padding: 28px 16px 48px;
   }
 
   .stat {
-    min-width: 0;
-    padding: 10px 12px;
-  }
-
-  .controls {
-    padding: 12px 14px;
-    gap: 10px;
-  }
-
-  .control-group {
-    gap: 6px;
-  }
-
-  select,
-  input {
-    padding: 6px 8px;
-    font-size: 0.85rem;
-  }
-
-  .nickname-group input {
-    width: 120px;
-  }
-
-  .arena {
-    grid-template-columns: 1fr;
-    grid-template-rows: minmax(0, 1fr) auto;
-    gap: 12px;
-    align-items: stretch;
-  }
-
-  .board-panel {
-    padding: 12px;
-    min-height: 0;
-    overflow: hidden;
-  }
-
-  .leaderboard-panel {
-    padding: 12px;
-    gap: 10px;
-  }
-
-  .leaderboard-list {
-    font-size: 0.85rem;
-    gap: 6px;
-  }
-
-  .leaderboard-list li:nth-child(n + 4) {
-    display: none;
+    min-width: 120px;
   }
 
   .board {
-    --cell-size: 24px;
-  }
-
-  .tips {
-    display: none;
+    --cell-size: 28px;
   }
 }
 
