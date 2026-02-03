@@ -4,7 +4,7 @@
     "module": "ES2020",
     "lib": ["DOM", "ES2020"],
     "rootDir": "src",
-    "outDir": "dist",
+    "outDir": "public/dist",
     "strict": true,
     "noImplicitAny": true,
     "noEmitOnError": true,
